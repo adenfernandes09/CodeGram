@@ -2,13 +2,13 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { useToast } from "@/components/ui/use-toast"
 import { Button } from '@/components/ui/button';
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage, } from "@/components/ui/form"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { SigninValidation } from "@/lib/validations";
 import { z } from "zod";
 import { Link, useNavigate } from "react-router-dom";
-import Loader from "@/components/ui/shared/Loader";
-import { useCreateUserAccount, useSignInAccount } from "@/lib/react-query/queriesAndMutations";
+import Loader from "@/components/shared/Loader";
+import {useSignInAccount } from "@/lib/react-query/queriesAndMutations";
 import { useUserContext } from "@/context/AuthContext";
 
 
@@ -41,9 +41,12 @@ const SigninForm = () => {
             if(isLoggedIn){
                 form.reset();
                 navigate("/");
-            } else return toast({title: "Sign up failed. Please try again"})
+            } else {
+              toast({ title: "Login failed. Please try again.", });
+              return;}
 
-          }
+            };
+
   return (
     <Form {...form}>
         <div className="sm:w-420 flex flex-col">
