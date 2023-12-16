@@ -33,16 +33,16 @@ const PostForm = ({post}: PostFormProps) => {
     const form = useForm<z.infer<typeof PostValidation>>({
         resolver: zodResolver(PostValidation),
         defaultValues: {
-        caption: post? post?.caption : "",
-        file: [],
-        location: post? post?.location: "",
-        tags: post? post?.tags.join(","): "",
+            caption: post ? post?.caption : "",
+            file: [],
+            location: post ? post.location : "",
+            tags: post ? post.tags.join(",") : "",
         },});
 
   async function onSubmit(values: z.infer<typeof PostValidation>) {
     const newPost  = await createPost({
         ...values,
-        userId: user.id
+        userId: user.id,
     })
 
     if(!newPost){
@@ -50,6 +50,7 @@ const PostForm = ({post}: PostFormProps) => {
             title: "Please try again"
         })
     }
+    console.log("Post was created successfully and now navigating to home page")
     navigate("/")
   }
 
