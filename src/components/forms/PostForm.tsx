@@ -22,9 +22,10 @@ import { useToast } from "../ui/use-toast"
 import { useCreatePost } from "@/lib/react-query/queriesAndMutations"
 
 type PostFormProps = {
-    post? : Models.Document
+    post? : Models.Document, 
+    action: 'Create' | 'Update'
 }
-const PostForm = ({post}: PostFormProps) => {
+const PostForm = ({post , action}: PostFormProps) => {
     const {mutateAsync: createPost, isPending: isLoadingCreate} = useCreatePost();
     const {user} = useUserContext();
     const {toast} = useToast();
@@ -50,7 +51,6 @@ const PostForm = ({post}: PostFormProps) => {
             title: "Please try again"
         })
     }
-    console.log("Post was created successfully and now navigating to home page")
     navigate("/")
   }
 
@@ -78,7 +78,7 @@ const PostForm = ({post}: PostFormProps) => {
           <FormItem>
             <FormLabel className="shad-form_label">Add Photos</FormLabel>
             <FormControl>
-                <FileUploader fieldChange = {field.onChange} mediaURL = {post?.mediaURL} />
+                <FileUploader fieldChange = {field.onChange} mediaURL = {post?.imageUrl} />
             </FormControl>
             <FormMessage className="shad-form_message" />
           </FormItem>
